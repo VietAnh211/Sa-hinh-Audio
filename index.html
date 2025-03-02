@@ -15,14 +15,16 @@
     <button onclick="playSound('audio2.mp3')">Phát Âm Thanh 2</button>
     <button onclick="playSound('audio3.mp3')">Phát Âm Thanh 3</button>
     
-    <audio id="audio-player" controls></audio>
+    <audio id="audio-player"></audio>
     
     <script>
         document.addEventListener("click", () => {
             let audio = document.getElementById("audio-player");
             if (audio.paused) {
-                audio.src = "audio1.mp3"; // File mẫu để kích hoạt âm thanh
-                audio.play().catch(error => console.log("Phát âm thanh bị chặn: ", error));
+                audio.src = "audio1.mp3";
+                audio.load();
+                audio.play().then(() => console.log("Âm thanh kích hoạt thành công"))
+                .catch(error => console.log("Phát âm thanh bị chặn: ", error));
             }
         }, { once: true });
         
@@ -30,7 +32,8 @@
             let audio = document.getElementById("audio-player");
             audio.src = file;
             audio.load();
-            audio.play().catch(error => console.log("Phát âm thanh bị chặn: ", error));
+            audio.play().then(() => console.log("Đang phát: " + file))
+            .catch(error => console.log("Lỗi khi phát âm thanh: ", error));
         }
     </script>
 </body>
