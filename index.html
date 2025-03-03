@@ -6,18 +6,67 @@
     <title>Phát Âm Thanh</title>
     <style>
         body { text-align: center; font-family: Arial, sans-serif; }
-        button { margin: 10px; padding: 10px 20px; font-size: 16px; }
+        .container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .column {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .left-column button {
+            background-color: blue;
+            color: black;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
+        .right-column button {
+            background-color: yellow;
+            color: black;
+            padding: 10px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <h2>Phần mềm phát âm thanh</h2>
     
-    <!-- Thêm thẻ audio ẩn để Safari nhận diện -->
     <audio id="audio-player" preload="auto"></audio>
     
-    <button onclick="playSound('https://www.dropbox.com/scl/fi/68gqnrut4j1cjwoiw4fdd/audio1.mp3?rlkey=ga9mhapc47vrnvavpwqvcsu6z&st=6s73p6t4&raw=1')">Phát Âm Thanh 1</button>
-    <button onclick="playSound('audio2.m4a')">Phát Âm Thanh 2</button>
-    <button onclick="playSound('https://www.dropbox.com/s/ghi789rst/audio3.mp3?raw=1')">Phát Âm Thanh 3</button>
+    <div class="container">
+        <div class="column left-column">
+            <button onclick="playSound('audio1.m4a')">Phát Âm Thanh 1</button>
+            <button onclick="playSound('audio2.m4a')">Phát Âm Thanh 2</button>
+            <button onclick="playSound('audio3.m4a')">Phát Âm Thanh 3</button>
+            <button onclick="playSound('audio4.m4a')">Phát Âm Thanh 4</button>
+            <button onclick="playSound('audio5.m4a')">Phát Âm Thanh 5</button>
+            <button onclick="playSound('audio6.m4a')">Phát Âm Thanh 6</button>
+            <button onclick="playSound('audio7.m4a')">Phát Âm Thanh 7</button>
+            <button onclick="playSound('audio8.m4a')">Phát Âm Thanh 8</button>
+            <button onclick="playSound('audio9.m4a')">Phát Âm Thanh 9</button>
+            <button onclick="playSound('audio10.m4a')">Phát Âm Thanh 10</button>
+            <button onclick="playSound('audio11.m4a')">Phát Âm Thanh 11</button>
+        </div>
+        <div class="column right-column">
+            <button onclick="playSound('audio12.m4a')">Phát Âm Thanh 12</button>
+            <button onclick="playSound('audio13.m4a')">Phát Âm Thanh 13</button>
+            <button onclick="playSound('audio14.m4a')">Phát Âm Thanh 14</button>
+            <button onclick="playSound('audio15.m4a')">Phát Âm Thanh 15</button>
+            <button onclick="playSound('audio16.m4a')">Phát Âm Thanh 16</button>
+            <button onclick="playSound('audio17.m4a')">Phát Âm Thanh 17</button>
+            <button onclick="playSound('audio18.m4a')">Phát Âm Thanh 18</button>
+            <button onclick="playSound('audio19.m4a')">Phát Âm Thanh 19</button>
+            <button onclick="playSound('audio20.m4a')">Phát Âm Thanh 20</button>
+            <button onclick="playSound('audio21.m4a')">Phát Âm Thanh 21</button>
+        </div>
+    </div>
     
     <script>
         function playSound(file) {
