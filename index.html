@@ -15,25 +15,17 @@
     <button onclick="playSound('audio2.mp3')">Phát Âm Thanh 2</button>
     <button onclick="playSound('audio3.mp3')">Phát Âm Thanh 3</button>
     
-    <audio id="audio-player"></audio>
-    
     <script>
-        document.addEventListener("click", () => {
-            let audio = document.getElementById("audio-player");
-            if (audio.paused) {
-                audio.src = "audio1.mp3";
-                audio.load();
-                audio.play().then(() => console.log("Âm thanh kích hoạt thành công"))
-                .catch(error => console.log("Phát âm thanh bị chặn: ", error));
-            }
-        }, { once: true });
+        let audio = new Audio();
         
         function playSound(file) {
-            let audio = document.getElementById("audio-player");
             audio.src = file;
             audio.load();
             audio.play().then(() => console.log("Đang phát: " + file))
-            .catch(error => console.log("Lỗi khi phát âm thanh: ", error));
+            .catch(error => {
+                console.log("Lỗi khi phát âm thanh: ", error);
+                alert("Trình duyệt có thể đang chặn âm thanh. Hãy chạm vào màn hình trước khi phát!");
+            });
         }
     </script>
 </body>
