@@ -37,6 +37,9 @@
             background-color: yellow;
             color: black;
         }
+        .hidden {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -44,35 +47,26 @@
     
     <audio id="audio-player" preload="auto"></audio>
     
-    <div class="container">
+    <div id="main-page" class="container">
         <div class="column left-column">
-            <button onclick="playSound('audio1.m4a')">Bài số 2: Bài dừng xe nhường đường cho người đi bộ </button>
-            <button onclick="playSound('audio2.m4a')">Phát Âm Thanh 2</button>
-            <button onclick="playSound('audio3.m4a')">Phát Âm Thanh 3</button>
-            <button onclick="playSound('audio4.m4a')">Phát Âm Thanh 4</button>
-            <button onclick="playSound('audio5.m4a')">Phát Âm Thanh 5</button>
-            <button onclick="playSound('audio6.m4a')">Phát Âm Thanh 6</button>
-            <button onclick="playSound('audio7.m4a')">Phát Âm Thanh 7</button>
-            <button onclick="playSound('audio8.m4a')">Phát Âm Thanh 8</button>
-            <button onclick="playSound('audio9.m4a')">Phát Âm Thanh 9</button>
-            <button onclick="playSound('audio10.m4a')">Phát Âm Thanh 10</button>
-            <button onclick="playSound('audio11.m4a')">Phát Âm Thanh 11</button>
+            <button onclick="openSubPage('audio1.m4a')">Phát Âm Thanh 1</button>
+            <button onclick="openSubPage('audio2.m4a')">Phát Âm Thanh 2</button>
         </div>
         <div class="column right-column">
-            <button onclick="playSound('audio12.m4a')">Bài số 2: Bài dừng xe nhường đường cho người đi bộ</button>
-            <button onclick="playSound('audio13.m4a')">Phát Âm Thanh 13</button>
-            <button onclick="playSound('audio14.m4a')">Phát Âm Thanh 14</button>
-            <button onclick="playSound('audio15.m4a')">Phát Âm Thanh 15</button>
-            <button onclick="playSound('audio16.m4a')">Phát Âm Thanh 16</button>
-            <button onclick="playSound('audio17.m4a')">Phát Âm Thanh 17</button>
-            <button onclick="playSound('audio18.m4a')">Phát Âm Thanh 18</button>
-            <button onclick="playSound('audio19.m4a')">Phát Âm Thanh 19</button>
-            <button onclick="playSound('audio20.m4a')">Phát Âm Thanh 20</button>
-            <button onclick="playSound('audio21.m4a')">Phát Âm Thanh 21</button>
+            <button onclick="openSubPage('audio3.m4a')">Phát Âm Thanh 3</button>
+            <button onclick="openSubPage('audio4.m4a')">Phát Âm Thanh 4</button>
         </div>
     </div>
     
+    <div id="sub-page" class="hidden">
+        <h3>Trang Phụ</h3>
+        <button id="sub-audio-btn" onclick="playSubAudio()">Phát lại âm thanh</button>
+        <button onclick="goBack()">Quay lại</button>
+    </div>
+    
     <script>
+        let currentAudio = '';
+        
         function playSound(file) {
             let audio = document.getElementById("audio-player");
             audio.src = file;
@@ -81,6 +75,22 @@
                 console.log("Lỗi khi phát âm thanh: ", error);
                 alert("Trình duyệt có thể đang chặn âm thanh. Hãy chạm vào màn hình trước khi phát!");
             });
+        }
+        
+        function openSubPage(file) {
+            currentAudio = file;
+            playSound(file);
+            document.getElementById("main-page").classList.add("hidden");
+            document.getElementById("sub-page").classList.remove("hidden");
+        }
+        
+        function playSubAudio() {
+            playSound(currentAudio);
+        }
+        
+        function goBack() {
+            document.getElementById("sub-page").classList.add("hidden");
+            document.getElementById("main-page").classList.remove("hidden");
         }
     </script>
 </body>
