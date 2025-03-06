@@ -9,7 +9,7 @@
         .container {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 50px;
             margin-top: 20px;
         }
         .column {
@@ -25,6 +25,8 @@
             border-radius: 10px;
             box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
             transition: transform 0.1s ease-in-out;
+            width: 200px;
+            margin: auto;
         }
         button:active {
             transform: scale(0.95);
@@ -40,6 +42,15 @@
         .hidden {
             display: none;
         }
+        .sub-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .back-button {
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
@@ -49,43 +60,44 @@
     
     <div id="main-page" class="container">
         <div class="column left-column">
-            <button onclick="openSubPage('audio1.m4a')">Phát Âm Thanh 1</button>
-            <button onclick="openSubPage('audio2.m4a')">Phát Âm Thanh 2</button>
+            <button onclick="openSubPage('batdau')">Bắt đầu</button>
+            <button onclick="openSubPage('nhuongduong')">Nhường đường cho người đi bộ</button>
+            <button onclick="openSubPage('dungxenganhdoc')">Dừng xe khởi hành ngang dốc</button>
+            <button onclick="openSubPage('vetbanhxe')">Vệt bánh xe - Đường vuông góc</button>
+            <button onclick="openSubPage('ngatu')">Ngã tư có tín hiệu giao thông</button>
+            <button onclick="openSubPage('duongvongco')">Đường vòng quanh co</button>
+            <button onclick="openSubPage('ghepxedoc')">Ghép xe dọc</button>
+            <button onclick="openSubPage('dungduongtau')">Dừng đường tàu</button>
+            <button onclick="openSubPage('tanggiamso')">Tăng giảm số, tốc độ</button>
+            <button onclick="openSubPage('ghepxengan')">Ghép xe ngang</button>
+            <button onclick="openSubPage('ketthuc')">Kết thúc</button>
+            <button onclick="openSubPage('chucmung')">CHÚC MỪNG THI ĐẠT</button>
         </div>
         <div class="column right-column">
-            <button onclick="openSubPage('audio3.m4a')">Phát Âm Thanh 3</button>
-            <button onclick="openSubPage('audio4.m4a')">Phát Âm Thanh 4</button>
+            <button onclick="playSound('chetmay.m4a')">Chết máy</button>
+            <button onclick="playSound('banhxedevach.m4a')">Bánh xe đè vạch</button>
+            <button onclick="playSound('tinhhuongnguyhiem.m4a')">Tình huống nguy hiểm</button>
         </div>
     </div>
     
     <div id="sub-page" class="hidden">
         <h3>Trang Phụ</h3>
-        <button id="sub-audio-btn" onclick="playSubAudio()">Phát lại âm thanh</button>
-        <button onclick="goBack()">Quay lại</button>
+        <div id="sub-content" class="sub-container"></div>
+        <button class="back-button" onclick="goBack()">Quay lại</button>
     </div>
     
     <script>
-        let currentAudio = '';
-        
         function playSound(file) {
             let audio = document.getElementById("audio-player");
             audio.src = file;
-            audio.play().then(() => console.log("Đang phát: " + file))
-            .catch(error => {
-                console.log("Lỗi khi phát âm thanh: ", error);
-                alert("Trình duyệt có thể đang chặn âm thanh. Hãy chạm vào màn hình trước khi phát!");
-            });
+            audio.play();
         }
         
-        function openSubPage(file) {
-            currentAudio = file;
-            playSound(file);
+        function openSubPage(type) {
             document.getElementById("main-page").classList.add("hidden");
             document.getElementById("sub-page").classList.remove("hidden");
-        }
-        
-        function playSubAudio() {
-            playSound(currentAudio);
+            let subContent = document.getElementById("sub-content");
+            subContent.innerHTML = "<h4>Đang cập nhật...</h4>";
         }
         
         function goBack() {
