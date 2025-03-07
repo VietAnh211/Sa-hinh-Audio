@@ -1,15 +1,24 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phát Âm Thanh</title>
+    <title>Soundboard</title>
     <style>
-        body { text-align: center; font-family: Arial, sans-serif; }
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            margin-top: 20px;
+        }
         .container {
             display: flex;
-            justify-content: center;
-            gap: 50px;
+            gap: 20px;
             margin-top: 20px;
         }
         .column {
@@ -18,92 +27,82 @@
             gap: 10px;
         }
         button {
-            padding: 12px;
+            padding: 10px;
             font-size: 16px;
-            border: none;
             cursor: pointer;
-            border-radius: 10px;
-            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-            transition: transform 0.1s ease-in-out;
-            width: 200px;
-            margin: auto;
         }
-        button:active {
-            transform: scale(0.95);
-        }
-        .left-column button {
-            background-color: lightgreen;
-            color: black;
-        }
-        .right-column button {
-            background-color: yellow;
-            color: black;
-        }
-        .hidden {
+        .modal {
             display: none;
-        }
-        .sub-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 30px;
+            width: 40%; /* Hẹp lại một nửa */
+            height: 85%; /* Tăng chiều cao */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 10px;
+            justify-content: center;
         }
-        .back-button {
-            margin-top: 20px;
+        .modal button {
+            display: block;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
-    <h2>Phần mềm phát âm thanh</h2>
-    
-    <audio id="audio-player" preload="auto"></audio>
-    
-    <div id="main-page" class="container">
-        <div class="column left-column">
-            <button onclick="openSubPage('batdau')">Bắt đầu</button>
-            <button onclick="openSubPage('nhuongduong')">Nhường đường cho người đi bộ</button>
-            <button onclick="openSubPage('dungxenganhdoc')">Dừng xe khởi hành ngang dốc</button>
-            <button onclick="openSubPage('vetbanhxe')">Vệt bánh xe - Đường vuông góc</button>
-            <button onclick="openSubPage('ngatu')">Ngã tư có tín hiệu giao thông</button>
-            <button onclick="openSubPage('duongvongco')">Đường vòng quanh co</button>
-            <button onclick="openSubPage('ghepxedoc')">Ghép xe dọc</button>
-            <button onclick="openSubPage('dungduongtau')">Dừng đường tàu</button>
-            <button onclick="openSubPage('tanggiamso')">Tăng giảm số, tốc độ</button>
-            <button onclick="openSubPage('ghepxengan')">Ghép xe ngang</button>
-            <button onclick="openSubPage('ketthuc')">Kết thúc</button>
-            <button onclick="openSubPage('chucmung')">CHÚC MỪNG THI ĐẠT</button>
-        </div>
-        <div class="column right-column">
-            <button onclick="playSound('chetmay.m4a')">Chết máy</button>
-            <button onclick="playSound('banhxedevach.m4a')">Bánh xe đè vạch</button>
-            <button onclick="playSound('tinhhuongnguyhiem.m4a')">Tình huống nguy hiểm</button>
-        </div>
+    <h1>CHẤM ĐIỂM PHẦN THI TRONG HÌNH</h1>
+    <div class="container">
+        <div class="column" id="left-column"></div>
+        <div class="column" id="right-column"></div>
     </div>
-    
-    <div id="sub-page" class="hidden">
-        <h3>Trang Phụ</h3>
-        <div id="sub-content" class="sub-container"></div>
-        <button class="back-button" onclick="goBack()">Quay lại</button>
+    <div id="modal" class="modal">
+        <h2>Nút phụ</h2>
+        <div id="sub-buttons"></div>
+        <button onclick="closeModal()">Đóng</button>
     </div>
-    
     <script>
-        function playSound(file) {
-            let audio = document.getElementById("audio-player");
-            audio.src = file;
-            audio.play();
+        const sounds = Array.from({ length: 18 }, (_, i) => `sound${i + 1}.mp3`);
+        
+        function createButton(sound, index, column) {
+            const btn = document.createElement("button");
+            btn.textContent = `Nút chính số ${index + 1}`;
+            btn.onclick = () => {
+                const audio = new Audio(sound);
+                audio.play();
+                openModal();
+            };
+            document.getElementById(column).appendChild(btn);
         }
         
-        function openSubPage(type) {
-            document.getElementById("main-page").classList.add("hidden");
-            document.getElementById("sub-page").classList.remove("hidden");
-            let subContent = document.getElementById("sub-content");
-            subContent.innerHTML = "<h4>Đang cập nhật...</h4>";
+        function openModal() {
+            const modal = document.getElementById("modal");
+            const subButtons = document.getElementById("sub-buttons");
+            subButtons.innerHTML = "";
+            
+            for (let i = 1; i <= 10; i++) {
+                const btn = document.createElement("button");
+                btn.textContent = `Nút phụ ${i}`;
+                subButtons.appendChild(btn);
+            }
+            
+            modal.style.display = "flex";
         }
         
-        function goBack() {
-            document.getElementById("sub-page").classList.add("hidden");
-            document.getElementById("main-page").classList.remove("hidden");
+        function closeModal() {
+            document.getElementById("modal").style.display = "none";
         }
+        
+        sounds.forEach((sound, index) => {
+            const column = index < 12 ? "left-column" : "right-column";
+            createButton(sound, index, column);
+        });
     </script>
 </body>
 </html>
