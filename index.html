@@ -99,10 +99,17 @@
             10: {
                 left: ["Tiếng kêu khẩn cấp"],
                 right: ["Không tuân thủ tình huống khẩn cấp"]
+            },
+            11: {
+                left: ["Tiếng bingbong"],
+                right: ["Không bật xi nhan"]
             }
         };
         
         function openModal(index) {
+            if (index >= 12) {
+                return;
+            }
             document.getElementById("sub-buttons-left").innerHTML = subButtonNames[index]?.left.map(name => `<button>${name}</button>`).join('') || '';
             document.getElementById("sub-buttons-right").innerHTML = subButtonNames[index]?.right.map(name => `<button>${name}</button>`).join('') || '';
             document.getElementById("modal").style.display = "flex";
