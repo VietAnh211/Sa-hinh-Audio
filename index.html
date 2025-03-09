@@ -30,6 +30,12 @@
             padding: 10px;
             font-size: 16px;
             cursor: pointer;
+            border: none;
+            border-radius: 10px;
+            transition: box-shadow 0.2s;
+        }
+        button:active {
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
         .modal {
             display: none;
@@ -65,6 +71,12 @@
             padding: 12px;
             font-size: 18px;
         }
+        .green-button {
+            background-color: #90EE90;
+        }
+        .yellow-button {
+            background-color: #FFD700;
+        }
     </style>
 </head>
 <body>
@@ -96,22 +108,18 @@
         ];
         
         const subButtonNames = {
-            10: {
-                left: ["Tiếng kêu khẩn cấp"],
-                right: ["Không tuân thủ tình huống khẩn cấp"]
-            },
-            11: {
-                left: ["Tiếng bingbong"],
-                right: ["Không bật xi nhan"]
-            }
+            0: { left: ["Tiếng Bingbong", "Tiếng tu"], right: ["Không thắt dây an toàn", "Không bật xi nhan", "Không tắt xi nhan", "Chết máy", "Quá 20s", "Quá 30s"] },
+            1: { left: ["Tiếng Bingbong", "Tiếng tu"], right: ["Dừng xe chưa đến vị trí", "Dừng xe quá vị trí", "Chết máy", "Quá 20s", "Quá 30s"] },
+            2: { left: ["Tiếng Bingbong", "Tiếng tu"], right: ["Dừng xe chưa đến vị trí", "Dừng xe quá vị trí - Loại", "Chết máy", "Quá 20s", "Quá 30s"] },
+            3: { left: ["Tiếng Bingbong"], right: ["Không đi qua vệt bánh xe - Loại", "Bánh xe đè vạch", "Chết máy", "Quá 20s", "Quá 30s"] },
+            10: { left: ["Tiếng kêu khẩn cấp"], right: ["Không tuân thủ tình huống khẩn cấp"] },
+            11: { left: ["Tiếng bingbong"], right: ["Không bật xi nhan"] }
         };
         
         function openModal(index) {
-            if (index >= 12) {
-                return;
-            }
-            document.getElementById("sub-buttons-left").innerHTML = subButtonNames[index]?.left.map(name => `<button>${name}</button>`).join('') || '';
-            document.getElementById("sub-buttons-right").innerHTML = subButtonNames[index]?.right.map(name => `<button>${name}</button>`).join('') || '';
+            if (!subButtonNames[index]) return;
+            document.getElementById("sub-buttons-left").innerHTML = subButtonNames[index].left.map(name => `<button class='green-button'>${name}</button>`).join('');
+            document.getElementById("sub-buttons-right").innerHTML = subButtonNames[index].right.map(name => `<button class='green-button'>${name}</button>`).join('');
             document.getElementById("modal").style.display = "flex";
         }
         
@@ -122,6 +130,7 @@
         function createButton(name, index, column) {
             const btn = document.createElement("button");
             btn.textContent = name;
+            btn.classList.add(index < 12 ? "green-button" : "yellow-button");
             btn.onclick = () => {
                 const audio = new Audio(`sound${index + 1}.mp3`);
                 audio.play();
